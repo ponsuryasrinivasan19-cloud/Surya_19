@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <string.h>
+
+char input[100];
+int i = 0;
+
+// Function for S → aSb | ε
+int S() {
+    if (input[i] == 'a') {
+        i++;
+        if (S()) {  // Recursive call for the middle S
+            if (input[i] == 'b') {
+                i++;
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        return 0;
+    }
+    // ε (empty string) production
+    return 1;
+}
+
+int main() {
+    printf("Enter a string: ");
+    scanf("%s", input);
+
+    if (S() && input[i] == '\0')
+        printf("String is accepted by the grammar.\n");
+    else
+        printf("String is NOT accepted by the grammar.\n");
+
+    return 0;
+}
